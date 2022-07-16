@@ -1,9 +1,11 @@
 #include "sort.h"
+
 /**
- * _swap - swap two numbers
+ * _swap - swap two numbers.
  * @a: integer
  * @b: integer
  **/
+
 void _swap(int *a, int *b)
 {
 	int tmp;
@@ -11,33 +13,77 @@ void _swap(int *a, int *b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
+
 }
+
 /**
- * selection_sort - sort array using selection sort algorithm
- * @array: array
- * @size: array size
+ * _split - Split the array and takes the last element as pivot
+ * @arr: Array
+ * @min: first element
+ * @last: The last element
+ * @size: size
+ * Return: integer
  **/
-
-void selection_sort(int *array, size_t size)
+int _split(int *arr, int min, int last, size_t size)
 {
-	unsigned int i, j, min;
+	int piv;
+	int i = (min);
+	int j;
 
-	if (array == NULL || size < 2)
-		return;
-
-	for (i = 0; i < size; i++)
+	piv = arr[last];
+	for (j = min; j < last; j++)
 	{
-		min = i;
-		for (j = i + 1; j < size; j++)
+		if (arr[j] <= piv)
 		{
-			if (array[min] > array[j])
-				min = j;
-		}
-		if (min != i)
-		{
-			_swap(&array[i], &array[min]);
-			print_array(array, size);
+
+			_swap(&arr[i], &arr[j]);
+
+
+			if (i != j)
+				print_array(arr, size);
+
+			i++;
+
 		}
 	}
 
+	_swap(&arr[i], &arr[last]);
+	if (i != j)
+		print_array(arr, size);
+
+	return (i);
+}
+
+/**
+ * quick_sort_array - quick_sort_array
+ * @arr: arr
+ * @min: min
+ * @last: last
+ * @size: size
+ * Return: Nothing
+ */
+void quick_sort_array(int *arr, int min, int last, size_t size)
+{
+
+	int piv;
+
+	if (min < last)
+	{
+		piv = _split(arr, min, last, size);
+		quick_sort_array(arr, min, (piv - 1), size);
+		quick_sort_array(arr, (piv + 1), last, size);
+	}
+}
+
+/**
+ * quick_sort -Sort an array using quick_sort algorithm
+ * @array: array
+ * @size: size
+ **/
+void quick_sort(int *array, size_t size)
+{
+	if (size < 2)
+		return;
+
+	quick_sort_array(array, 0, size - 1, size);
 }
