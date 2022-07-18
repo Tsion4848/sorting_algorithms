@@ -2,10 +2,7 @@
 #define _SORT_H_
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-#define INCREMENT 1
-#define DECREMENT -1
+#include <stddef.h>
 
 /**
  * struct listint_s - Doubly linked list node
@@ -36,8 +33,5 @@ void radix_sort(int *array, size_t size);
 void bitonic_sort(int *array, size_t size);
 void quick_sort_hoare(int *array, size_t size);
 void sort_deck(deck_node_t **deck);
-int lomuto_partition(int *array, int lower, int higher, size_t size);
-listint_t *get_dlistint_lelem(listint_t *h);
-int getCantRep(int num);
 
 #endif/* _SORT_H_ */
